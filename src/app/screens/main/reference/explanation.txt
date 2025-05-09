@@ -1,0 +1,2 @@
+This subdirectory houses the template screen code that came with the creation template for PixiJS.
+You may find it helpful as a refeference for writing "screen code".
