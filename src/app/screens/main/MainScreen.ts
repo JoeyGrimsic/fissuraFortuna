@@ -2,7 +2,7 @@ import { Container, Sprite, Assets, Ticker } from "pixi.js";
 // import { engine } from "../../getEngine"; // this line was not needed?
 
 export class MainScreen extends Container {
-  // tell the engine which AssetPack bundles must be loaded first
+  // tell the engine which AssetPack to loaded, this variable is accessed from 
   public static assetBundles = ["main"]; // ← matches the main{m} folder
 
   private readonly level: number[][] = [
@@ -17,7 +17,7 @@ export class MainScreen extends Container {
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -38,20 +38,20 @@ export class MainScreen extends Container {
     this.addChild(this.tileLayer);
   }
 
-  /** Runs right after the bundle “main” is loaded */
+  // runs right after the bundle “main” is loaded
   public prepare() {
     this.buildLevel();
   }
 
-  /** Create sprites for every tile in the level array */
+  // create sprites for every tile in the level array
   private buildLevel() {
-    const airTex = Assets.get("sandstone_background.png");
-    const rockTex = Assets.get("sandstone4.png");
+    const airTexture = Assets.get("sandstone_background.png");
+    const rockTexture = Assets.get("sandstone4.png");
 
     this.level.forEach((row, y) => {
       row.forEach((block, x) => {
-        const tex = block === 1 ? rockTex : airTex;
-        const sprite = new Sprite(tex);
+        const texture = block === 1 ? rockTexture : airTexture; // fancy if-else one-liner syntax
+        const sprite = new Sprite(texture);
         sprite.x = x * this.tileSize;
         sprite.y = y * this.tileSize;
         this.tileLayer.addChild(sprite);
@@ -59,7 +59,7 @@ export class MainScreen extends Container {
     });
   }
 
-  /** Game‑loop‑style update */
+  // main game loop
   public update(_ticker: Ticker) {
     if (this.paused) return;
     // put per‑frame logic here (camera, player, etc.)
@@ -68,11 +68,11 @@ export class MainScreen extends Container {
   public pause() { this.paused = true; }
   public resume() { this.paused = false; }
 
-  /** Handle window resize – keep the grid scaled to fit vertically */
+  // handle window resize, but we will want to add to this function when we render more things to the screen 
   public resize(screenW: number, screenH: number) {
     const designH = this.level.length * this.tileSize;
     const scale = screenH / designH;
-    this.tileLayer.scale.set(scale);              // uniform scaling
-    this.tileLayer.x = (screenW - this.tileLayer.width) / 2; // center
+    this.tileLayer.scale.set(scale); // uniform scaling.. we want to change this so that textures don't lose resolution
+    this.tileLayer.x = (screenW - this.tileLayer.width) / 2; // center for now, but eventually we want to move all of this, because after all if the character is moving then the ground should move around the player with the player in the middle of the screen
   }
 }
