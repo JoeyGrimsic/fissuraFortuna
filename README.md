@@ -8,4 +8,4 @@
 
 ## About The Project
 
-A TypeScript inspired game engine.. or so they say
+A Spelunky inspired game engine written in TypeScript.. or so they say
