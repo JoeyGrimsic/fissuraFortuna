@@ -5,7 +5,7 @@ export class MainScreen extends Container {
   // tell the engine which AssetPack to loaded, this variable is accessed from 
   public static assetBundles = ["main"]; // ← matches the main{m} folder
 
-  private readonly level: number[][] = [
+  private level: number[][] = [
     // 0 = air, 1 = sandstone 
     // this is hardcoded now, but we will want to add procedural generation!
 
@@ -29,7 +29,7 @@ export class MainScreen extends Container {
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ];
 
-  private readonly tileSize = 16;                 // raw pixel size (before resize)
+  private tileSize = 16;                 // raw pixel size (before resize)
   private tileLayer: Container = new Container(); // holds all tile sprites
   private paused = false;
 
@@ -38,19 +38,21 @@ export class MainScreen extends Container {
     this.addChild(this.tileLayer);
   }
 
-  // runs right after the bundle “main” is loaded
+  // this abstraction is probably unecessary because we will want to update the level, and such it cannot be built only once
   public prepare() {
     this.buildLevel();
   }
 
   // create sprites for every tile in the level array
   private buildLevel() {
-    const airTexture = Assets.get("sandstone4_background.png");
-    const rockTexture = Assets.get("sandstone4.png");
+    const sandstone4 = Assets.get("sandstone4.png");
+    // doesn't seem to work    sandstone4.source.scaleMode = "nearest";
+    const sandstone4_background = Assets.get("sandstone4_background.png");
+    // doesn't seem to work    sandstone4_background.source.scaleMode = "nearest";
 
     this.level.forEach((row, y) => {
       row.forEach((block, x) => {
-        const texture = block === 1 ? rockTexture : airTexture; // fancy if-else one-liner syntax
+        const texture = block === 1 ? sandstone4 : sandstone4_background; // fancy if-else one-liner syntax
         const sprite = new Sprite(texture);
         sprite.x = x * this.tileSize;
         sprite.y = y * this.tileSize;
@@ -63,6 +65,7 @@ export class MainScreen extends Container {
   public update(_ticker: Ticker) {
     if (this.paused) return;
     // put per‑frame logic here (camera, player, etc.)
+    // NOTE: We may want to do camera logic here instead of manually transforming each container of sprites..
   }
 
   public pause() { this.paused = true; }

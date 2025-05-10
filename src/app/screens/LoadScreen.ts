@@ -16,8 +16,8 @@ export class LoadScreen extends Container {
     super();
 
     this.progressBar = new CircularProgressBar({
-      backgroundColor: "#3d3d3d",
-      fillColor: "#e72264",
+      backgroundColor: "3d3d3d",
+      fillColor: "#0000aa",
       radius: 100,
       lineWidth: 15,
       value: 20,
@@ -32,9 +32,9 @@ export class LoadScreen extends Container {
     this.addChild(this.progressBar);
 
     this.pixiLogo = new Sprite({
-      texture: Texture.from("logo.svg"),
+      texture: Texture.from("potion_load.png"),
       anchor: 0.5,
-      scale: 0.2,
+      scale: 0.55,
     });
     this.addChild(this.pixiLogo);
   }
@@ -45,7 +45,7 @@ export class LoadScreen extends Container {
 
   /** Resize the screen, fired whenever window size changes  */
   public resize(width: number, height: number) {
-    this.pixiLogo.position.set(width * 0.5, height * 0.5);
+    this.pixiLogo.position.set(width * 0.5, height * 0.5 - 7);
     this.progressBar.position.set(width * 0.5, height * 0.5);
   }
 
