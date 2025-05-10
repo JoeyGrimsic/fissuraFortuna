@@ -1,6 +1,7 @@
 import { setEngine } from "./app/getEngine";
 import { LoadScreen } from "./app/screens/LoadScreen";
-import { MainScreen } from "./app/screens/main/MainScreen";
+//  NOTE: Changed ./app/screens/main/MainScreen to ./app/screens/main/mainScreen for better file naming
+import { MainScreen } from "./app/screens/main/mainScreen";
 import { userSettings } from "./app/utils/userSettings";
 import { CreationEngine } from "./engine/engine";
 
@@ -27,5 +28,5 @@ setEngine(engine);
   // Show the load screen
   await engine.navigation.showScreen(LoadScreen);
   // Show the main screen once the load screen is dismissed
-  await engine.navigation.showScreen(MainScreen);
+  await engine.navigation.showScreen(MainScreen); // this line gives an error but mysteriously breaks app if commented out
 })();
