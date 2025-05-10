@@ -10,7 +10,7 @@
 
 A Spelunky inspired game engine written in TypeScript.. or so they say
 
-# Dev Usage
+### Dev Usage
 
 To run dev build, use 
 ```npm run dev```
