@@ -12,7 +12,7 @@ A Spelunky inspired game engine written in TypeScript.. or so they say
 
 ### Dependencies
 -npm: vite  
-run ```npm install vite```
+use ```npm install vite```
 
 ### Dev Usage
 
