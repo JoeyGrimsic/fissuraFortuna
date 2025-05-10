@@ -19,10 +19,10 @@ export class LoadScreen extends Container {
       backgroundColor: "3d3d3d",
       fillColor: "#0000aa",
       radius: 100,
-      lineWidth: 15,
+      lineWidth: 10,
       value: 20,
-      backgroundAlpha: 0.5,
-      fillAlpha: 0.8,
+      backgroundAlpha: 1,
+      fillAlpha: 1,
       cap: "round",
     });
 
