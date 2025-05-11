@@ -29,7 +29,7 @@ export class MainScreen extends Container {
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ];
 
-  private tileSize = 16;                 // raw pixel size (before resize)
+  private tileSize = 16 * 4;                 // raw pixel size (before resize)
   private tileLayer: Container = new Container(); // holds all tile sprites
   private paused = false;
 
@@ -45,10 +45,10 @@ export class MainScreen extends Container {
 
   // create sprites for every tile in the level array
   private buildLevel() {
-    const sandstone4 = Assets.get("sandstone4.png");
-    // doesn't seem to work    sandstone4.source.scaleMode = "nearest";
+    const sandstone4 = Assets.get("potion_blue.png");
+    //sandstone4.sourc.scaleMode = "nearest";
     const sandstone4_background = Assets.get("sandstone4_background.png");
-    // doesn't seem to work    sandstone4_background.source.scaleMode = "nearest";
+    //sandstone4_background.source.scaleMode = "nearest";
 
     this.level.forEach((row, y) => {
       row.forEach((block, x) => {
