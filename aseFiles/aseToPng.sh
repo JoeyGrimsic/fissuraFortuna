@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # This script requires aseprite cli
