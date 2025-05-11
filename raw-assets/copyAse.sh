@@ -7,10 +7,11 @@ DEST="./aseFiles"
 # Create destination directory if it doesn't exist
 mkdir -p "$DEST"
 
-# Copy all .ase files into ./aseFiles/
-find "$SRC" -maxdepth 1 -type f -name '*.aseprite' -exec cp -- '{}' "$DEST" \;
+# Copy all .aseprite files into ./aseFiles/, echoing each one
+find "$SRC" -maxdepth 1 -type f -name '*.aseprite' \
+  -exec cp -- '{}' "$DEST" \; \
+  -exec echo "Copied: {}" \;
 
 # Remove the execute bit from every copied file
 find "$DEST" -type f -name '*.aseprite' -exec chmod a-x '{}' \;
 
-echo Files copied!
