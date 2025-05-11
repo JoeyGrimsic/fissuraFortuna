@@ -32,7 +32,7 @@ export class LoadScreen extends Container {
     this.addChild(this.progressBar);
 
     this.pixiLogo = new Sprite({
-      texture: Texture.from("potion_load.png"),
+      texture: Texture.from("preload_potion.png"),
       anchor: 0.5,
       scale: 0.55,
     });

@@ -1,17 +1,18 @@
 #!/bin/bash
 
 # This script requires aseprite cli
-#
-# Enable nullglob to prevent literal interpretation of *.ase when no files exist
 shopt -s nullglob
 
-# Process each .ase file
+read -p "Enter the scale factor (positive integer): " scale_factor
+
+if ! [[ "$scale_factor" =~ ^[1-9][0-9]*$ ]]; then
+    echo "Error: Invalid scale factor. Must be a positive integer."
+    exit 1
+fi
+
 for file in *.aseprite; do
-    # Generate output filename by replacing .ase with .png
     png_file="${file%.aseprite}.png"
-    
-    # Export with 400% scaling using Aseprite CLI
-    aseprite -b "$file" --scale 4 --save-as "$png_file"
+    aseprite -b "$file" --scale "$scale_factor" --save-as "$png_file"
+    echo "Converted $file to $png_file ${scale_factor}x scale"
 done
 
-echo "Conversion complete!"
