@@ -8,7 +8,9 @@ DEST="./aseFiles"
 mkdir -p "$DEST"
 
 # Copy all .ase files into ./aseFiles/
-find "$SRC" -maxdepth 1 -type f -name '*.ase' -exec cp -- '{}' "$DEST" \;
+find "$SRC" -maxdepth 1 -type f -name '*.aseprite' -exec cp -- '{}' "$DEST" \;
 
 # Remove the execute bit from every copied file
-find "$DEST" -type f -name '*.ase' -exec chmod a-x '{}' \;
+find "$DEST" -type f -name '*.aseprite' -exec chmod a-x '{}' \;
+
+echo Files copied!
