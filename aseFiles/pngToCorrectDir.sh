@@ -2,8 +2,8 @@
 set -euo pipefail
 shopt -s nullglob
 
-DEST_MAIN="../main{m}/"
-DEST_PRELOAD="../preload{m}/"
+DEST_MAIN="../raw-assets/main{m}/"
+DEST_PRELOAD="../raw-assets/preload{m}/"
 
 mkdir -p "$DEST_MAIN" "$DEST_PRELOAD"
 find "$DEST_MAIN" -maxdepth 1 -type f -name '*.png' -delete
@@ -17,7 +17,7 @@ for file in *.png; do
   fi
 done
 
-# Move .aseprite files with logging
+# we want to move .aseprite files to tmp so they can be reused later if needed
 mkdir -p tmp
 for f in *.aseprite; do
   mv -- "$f" tmp/ && echo "Moved '$f' to subdirectory: tmp/"

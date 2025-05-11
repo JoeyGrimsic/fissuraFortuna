@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ADD FUNCTIONALITY FOR USERS WITH DIFFERENT FILEPATHS F0R ASEPRITE FILES
 set -euo pipefail
 
 SRC="/mnt/c/Users/golfp/OneDrive - The Ohio State University/Documents/Art/Aseprite"
