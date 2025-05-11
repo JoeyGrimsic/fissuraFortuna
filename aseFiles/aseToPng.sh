@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # This script requires aseprite cli
@@ -15,4 +16,3 @@ for file in *.aseprite; do
     aseprite -b "$file" --scale "$scale_factor" --save-as "$png_file"
     echo "Converted $file to $png_file ${scale_factor}x scale"
 done
-

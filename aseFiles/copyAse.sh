@@ -40,9 +40,18 @@ find "$SRC" -maxdepth 1 -type f -name '*.aseprite' -print0 | while IFS= read -r 
     cp -- "$file" "$DEST"
     echo "Copied '$filename' from '$SRC' to '$DEST'"
 done
+echo -e "\nCopying .png files from $SRC to current directory..."
+find "$SRC" -maxdepth 1 -type f -name '*.png' -print0 | while IFS= read -r -d $'\0' file; do
+    filename=$(basename "$file")
+    cp -- "$file" "$DEST"
+    echo "Copied '$filename' from '$SRC' to '$DEST'"
+done
 
 # Remove execute permissions
 echo -e "\nAdjusting permissions..."
 find "$DEST" -type f -name '*.aseprite' -exec chmod a-x {} \;
+echo -e "\nAdjusting permissions..."
+find "$DEST" -type f -name '*.png' -exec chmod a-x {} \;
 
 echo -e "\nOperation complete. Copied $(find "$DEST" -type f -name '*.aseprite' | wc -l) files."
+echo -e "\nOperation complete. Copied $(find "$DEST" -type f -name '*.png' | wc -l) files."
