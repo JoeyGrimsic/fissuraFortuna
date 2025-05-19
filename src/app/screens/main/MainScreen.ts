@@ -1,9 +1,14 @@
 import { Container, Sprite, Assets, Ticker } from "pixi.js";
+import { keyboard, KeyObject } from "./KeyObject.ts";
 // import { engine } from "../../getEngine"; // this line was not needed?
 
 export class MainScreen extends Container {
   // tell the engine which AssetPack to loaded, this variable is accessed from 
   public static assetBundles = ["main"]; // ← matches the main{m} folder
+
+
+  private worldTransformX: number = 0; // should never be less than 0
+  private worldTransformY: number = 0;
 
   private level: number[][] = [
     // 0 = air, 1 = sandstone 
@@ -60,10 +65,14 @@ export class MainScreen extends Container {
   private tileSize = 16 * this.exportSize;                 // raw pixel size (before resize)
   private tileLayer: Container = new Container(); // holds all tile sprites
   private paused = false;
+  private rightKey: KeyObject;
+  private leftKey: KeyObject;
 
   constructor() {
     super();
     this.addChild(this.tileLayer);
+    this.rightKey = keyboard("d");
+    this.leftKey = keyboard("a");
   }
 
   // this abstraction is probably unecessary because we will want to update the level, and such it cannot be built only once
@@ -89,21 +98,17 @@ export class MainScreen extends Container {
     });
   }
 
-  // main game loop
-  public update(_ticker: Ticker) {
+  public update(ticker: Ticker) {
     if (this.paused) return;
-    // put per‑frame logic here (camera, player, etc.)
-    // NOTE: We may want to do camera logic here instead of manually transforming each container of sprites..
+
+    if (this.rightKey.isDown) {
+      this.tileLayer.x += 13 * ticker.deltaTime;
+    }
+    if (this.leftKey.isDown) {
+      this.tileLayer.x -= 13 * ticker.deltaTime;
+    }
   }
 
   public pause() { this.paused = true; }
   public resume() { this.paused = false; }
-
-  // handle window resize, but we will want to add to this function when we render more things to the screen 
-  // public resize(screenW: number, screenH: number) {
-  //   const designH = this.level.length * this.tileSize;
-  //   const scale = screenH / designH;
-  //   this.tileLayer.scale.set(scale); // uniform scaling.. we want to change this so that textures don't lose resolution
-  //   this.tileLayer.x = (screenW - this.tileLayer.width) / 2; // center for now, but eventually we want to move all of this, because after all if the character is moving then the ground should move around the player with the player in the middle of the screen
-  // }
 }
